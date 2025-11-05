@@ -1,0 +1,128 @@
+// ==========================================
+// CONNECT TO DATABASE
+// ==========================================
+// Open Mongo shell or use MongoDB Compass
+// > use CricketDB
+// switched to db CricketDB
+
+
+// ==========================================
+// CREATE COLLECTION
+// ==========================================
+db.createCollection("CricketBoard");
+{ "ok" : 1 }
+
+
+// ==========================================
+// INSERT SINGLE DOCUMENT
+// ==========================================
+db.CricketBoard.insertOne({
+    BoardID: "BID01",
+    Name: "Chennai Cricket Board",
+    Address: "Chennai",
+    Phone: 9988776699
+});
+/*
+Output:
+{
+    "acknowledged" : true,
+    "insertedId" : ObjectId("651cf1726ebbfe7993adf909")
+}
+*/
+
+
+// ==========================================
+// INSERT MULTIPLE DOCUMENTS
+// ==========================================
+db.CricketBoard.insertMany([
+    { BoardID: "BID02", Name: "Tiruvallur Cricket Board", Address: "Chennai", Phone: 9977886699 },
+    { BoardID: "BID03", Name: "Viluppuram Cricket Board", Address: "Viluppuram", Phone: 9966886699 },
+    { BoardID: "BID04", Name: "Trichy Cricket Board", Address: "Trichy", Phone: 9955886699 },
+    { BoardID: "BID05", Name: "Madurai Cricket Board", Address: "Madurai", Phone: 9944886699 }
+]);
+/*
+Output:
+{
+    "acknowledged" : true,
+    "insertedIds" : [ ... ]
+}
+*/
+
+
+// ==========================================
+// READ / FIND ALL DOCUMENTS
+// ==========================================
+db.CricketBoard.find();
+/*
+Expected Output:
+Displays all documents inserted.
+*/
+
+db.CricketBoard.find().pretty();
+/*
+Nicely formatted output:
+{
+    "_id" : ObjectId("..."),
+    "BoardID" : "BID01",
+    "Name" : "Chennai Cricket Board",
+    "Address" : "Chennai",
+    "Phone" : 9988776699
+}
+...
+*/
+
+
+// ==========================================
+// QUERY SPECIFIC DOCUMENT
+// ==========================================
+db.CricketBoard.find({ BoardID: "BID01" }).pretty();
+/*
+Output:
+{
+    "_id" : ObjectId("651cf1726ebbfe7993adf909"),
+    "BoardID" : "BID01",
+    "Name" : "Chennai Cricket Board",
+    "Address" : "Chennai",
+    "Phone" : 9988776699
+}
+*/
+
+
+// ==========================================
+// UPDATE OPERATION (Example)
+// ==========================================
+db.CricketBoard.updateOne(
+    { BoardID: "BID04" },
+    { $set: { Address: "Tiruchirappalli" } }
+);
+/*
+Output:
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+*/
+
+
+// ==========================================
+// DELETE ONE DOCUMENT
+// ==========================================
+db.CricketBoard.deleteOne({ BoardID: "BID03" });
+/*
+Output:
+{ "acknowledged" : true, "deletedCount" : 1 }
+*/
+
+
+// ==========================================
+// VERIFY REMAINING DOCUMENTS
+// ==========================================
+db.CricketBoard.find().pretty();
+/*
+Expected Output:
+Only BID01, BID02, BID04, BID05 remain in the collection.
+*/
+
+
+// ==========================================
+// RESULT
+// ==========================================
+// Thus, CRUD operations using MongoDB (Create, Read, Update, Delete)
+// have been successfully performed on the CricketBoard collection.
